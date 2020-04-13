@@ -25,11 +25,26 @@ class Model {
         $this->values[$key] = $value;
     }
 
-    public static function getSelect($columns = '*', $params = []) {
+    public static function get($params = [], $columns = '*') {
+        $object = [];
+        $class = get_called_class();
+        
+        $result = static::getResultFromSelect($params, $columns);
+
+        while($row = $result->fetch_assoc()) {
+            $object[] = new $class($row);
+        }
+
+        return $object;
+    }
+
+    public static function getResultFromSelect($params = [], $columns = '*') {
         $sql = "SELECT $columns FROM "
         . static::$tableName
         . static::getFilters($params);
-        return $sql;
+
+        $result = Database::getResultFromQuery($sql);
+        return $result;
     }
 
     private static function getFilters($params) {
