@@ -37,6 +37,14 @@ class Model {
 
         return $object;
     }
+    
+    public static function getOne($params = [], $columns = '*') {
+        $class = get_called_class();
+
+        $result = static::getResultFromSelect($params, $columns);
+
+        return $result ? new $class($result->fetch_assoc()) : null;
+    }
 
     public static function getResultFromSelect($params = [], $columns = '*') {
         $sql = "SELECT $columns FROM "
