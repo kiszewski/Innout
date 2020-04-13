@@ -28,7 +28,7 @@ class Model {
     public static function get($params = [], $columns = '*') {
         $object = [];
         $class = get_called_class();
-        
+
         $result = static::getResultFromSelect($params, $columns);
 
         while($row = $result->fetch_assoc()) {
@@ -65,8 +65,7 @@ class Model {
         if(is_null($value)) {
             return "null";
         } elseif(is_string($value)) {
-            $param = "'$value'";
-            return $param;
+            return "'$value'";
         } else {
             return $value;
         }
