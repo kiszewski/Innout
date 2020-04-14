@@ -20,10 +20,11 @@
                 <i class="icofont-runner-alt-1 ml-2"></i>
             </div>
             <div class="card-body">
+                <?php include_once(TEMPLATE_PATH . '/messages.php')?>
                 <div class="form-group">
                     <label for="email">E-mail</label>
                     <input class="form-control" type="email" name="email" id="email"
-                    placeholder="Informe o E-mail" autofocus>
+                    placeholder="Informe o E-mail" value="<?= $email ?>" autofocus>
                 </div>
                 <div class="form-group">
                     <label for="password">Senha</label>
