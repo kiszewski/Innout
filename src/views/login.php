@@ -23,13 +23,21 @@
                 <?php include_once(TEMPLATE_PATH . '/messages.php')?>
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input class="form-control" type="email" name="email" id="email"
+                    <input class="form-control <?= $errors['email'] ? 'is-invalid' : ''?>" 
+                    type="email" name="email" id="email"
                     placeholder="Informe o E-mail" value="<?= $email ?>" autofocus>
+                    <div class="invalid-feedback">
+                        <?= $errors['email'] ?>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Senha</label>
-                    <input class="form-control" type="password" name="password" id="password"
+                    <input class="form-control <?= $errors['password'] ? 'is-invalid' : ''?>" 
+                    type="password" name="password" id="password"
                     placeholder="Informe a senha">
+                    <div class="invalid-feedback">
+                        <?= $errors['password'] ?>
+                    </div>
                 </div>
             </div>
             <div class="card-footer">
