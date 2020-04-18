@@ -8,9 +8,11 @@ body {
     'header header'
     'sidebar content'
     'sidebar footer';
+    background-color: #DDD;
 }
 
 body.hide-sidebar {
+    grid-template-columns: 1fr;
     grid-template-areas: 
     'header header'
     'content content'
@@ -140,8 +142,69 @@ aside.sidebar .menu li.nav-item a {
     text-decoration: none;
 }
 
-menu.content {
+aside.sidebar .sidebar-widgets {
+    position: sticky;
+    bottom: 20px;
+}
+
+aside.sidebar .sidebar-widget {
+    display: flex;
+    align-items: center;
+}
+
+aside.sidebar .sidebar-widget .icon {
+    font-size: 3.5rem;
+    margin: 2px 10px 2px 0;
+}
+
+aside.sidebar .sidebar-widget .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+aside.sidebar .sidebar-widget .info .main {
+    font-size: 2rem;
+}
+
+.division {
+    widows: 80%;
+    border: 1px #EEE solid;
+}
+
+main.content {
+    background-color: #FFF;
     grid-area: content;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, .2);
+}
+
+main.content .content-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 10px;
+}
+
+main.content .content-title .icon {
+    font-size: 3rem;
+}
+
+main.content .content-title h1 {
+    color: #444;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+main.content .content-title h2 {
+    color: #777;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0;
 }
 
 footer.footer {
@@ -153,4 +216,8 @@ footer.footer {
     font-size: 1.2rem;
     color: #FFF;
     grid-area: footer;
+}
+
+.record {
+    font-size: 2.2rem;
 }
