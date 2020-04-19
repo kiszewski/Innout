@@ -1,4 +1,8 @@
 <?php
 session_start();
 requireValidateSession();
-loadTeamplateView("day_records");
+
+$date = (new DateTime())->getTimestamp();
+$today = strftime('%d de %B de %Y', $date);
+
+loadTeamplateView("day_records", ['today' => $today] );
