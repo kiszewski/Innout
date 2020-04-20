@@ -25,4 +25,26 @@ class WorkingHours extends Model {
 
         return $registry;
     }
+
+    public function getNextTime() {
+        if(!$this->time1) return 'time1';
+        if(!$this->time2) return 'time2';
+        if(!$this->time3) return 'time3';
+        if(!$this->time4) return 'time4';
+        else return null;
+    }
+
+    public function innout($time) {
+        $currentColumn = $this->getNextTime();
+        if(!$currentColumn) {
+            throw new AppException('Voce já fez os 4 batimentos do dia!');
+        }
+
+        $this->$currentColumn = $time;
+        if($this->id) {
+            $this->update();
+        } else {
+            $this->insert();
+        }
+    }
 }

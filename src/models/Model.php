@@ -72,7 +72,7 @@ class Model {
     public function update() {
         $sql = "UPDATE " . static::$tableName . " SET ";
         foreach(static::$columns as $col) {
-            $sql .= static::getFormatedValue($this->$col) . ",";
+            $sql .= " ${col} = " . static::getFormatedValue($this->$col) . ",";
         }
 
         $sql[strlen($sql) - 1] = ' ';

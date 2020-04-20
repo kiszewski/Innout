@@ -8,7 +8,7 @@ $date = (new DateTime())->getTimestamp();
 $today = strftime('%d de %B de %Y', $date);
 
 $user = $_SESSION['user'];
-$records = WorkingHours::loadFromUserAndDate($user->id, date('2020-04-20'));
+$records = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
 
 loadTeamplateView("day_records",
     ['today' => $today,

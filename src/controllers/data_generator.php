@@ -40,7 +40,7 @@ function getDayTemplateByOdds($regularRate, $extraRate, $lazyRate) {
 function populateWorkingHours($UserId, $initialDate, $regularRate, $extraRate, $lazyRate) {
     $currentDate = $initialDate;
     $yesterday = new DateTime();
-    // $yesterday->modify('-1 day');
+    $yesterday->modify('-1 day');
     $columns = ['user_id' => $UserId, 'work_date' => $initialDate];
 
     while(isBefore($currentDate, $yesterday)) {
