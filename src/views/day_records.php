@@ -6,7 +6,6 @@
             'icofont-check-alt'
         );
         include(TEMPLATE_PATH . '/messages.php');
-        // print_r($records);
     ?>
     <div class="card">
         <div class="card-header">

@@ -5,8 +5,14 @@ requireValidateSession();
 loadModel("WorkingHours");
 
 $user = $_SESSION['user'];
-$records = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
+$records = WorkingHours::loadFromUserAndDate(1, date('Y-m-d'));
 
-$currentTime = strftime('%H:%M:%S', time());
-$result = $records->innout($currentTime); //erro da nessa linha
+try {
+    $currentTime = strftime('%H:%M:%S', time());
+    $result = $records->innout($currentTime);
+    addSuccessMsg("Ponto marcado com sucesso!");
+} catch(AppException $e) {
+    addErrorMsg($e->getMessage());
+}
+
 header("Location: day_records.php");
