@@ -6,6 +6,7 @@
             'icofont-check-alt'
         );
         include(TEMPLATE_PATH . '/messages.php');
+        // print_r($records);
     ?>
     <div class="card">
         <div class="card-header">
@@ -14,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="d-flex m-3 justify-content-around">
-                <span class="record">Entrada 1: ---</span>
+                <span class="record">Entrada 1: <?= $records->time1 ?? '---'?></span>
                 <span class="record">Saída 1: ---</span>
             </div>
             <div class="d-flex m-3 justify-content-around">

@@ -47,7 +47,7 @@ class Model {
     }
 
     public static function getResultFromSelect($params = [], $columns = '*') {
-        $sql = "SELECT $columns FROM "
+        $sql = "SELECT ${columns} FROM "
         . static::$tableName
         . static::getFilters($params);
 
@@ -55,7 +55,7 @@ class Model {
         return $result;
     }
 
-    public function save() {
+    public function insert() {
         $sql = "INSERT INTO " . static::$tableName . " ("
         . implode(',', static::$columns) . ") VALUES (";
 
@@ -67,6 +67,17 @@ class Model {
 
         $id = Database::executeSql($sql);
         $this->id = $id;
+    }
+
+    public function update() {
+        $sql = "UPDATE " . static::$tableName . " SET ";
+        foreach(static::$columns as $col) {
+            $sql .= static::getFormatedValue($this->$col) . ",";
+        }
+
+        $sql[strlen($sql) - 1] = ' ';
+        $sql .= "WHERE id = {$this->id}";
+        Database::executeSql($sql);
     }
 
     private static function getFilters($params) {
