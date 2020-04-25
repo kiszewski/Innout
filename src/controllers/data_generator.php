@@ -1,5 +1,4 @@
 <?php
-loadModel('WorkingHours');
 
 Database::executeSql('DELETE FROM working_hours');
 // Database::executeSql('DELETE FROM users where id > 5');

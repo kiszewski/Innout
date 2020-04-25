@@ -1,16 +1,3 @@
 <?php 
 
-loadModel("WorkingHours");
-$wh = WorkingHours::loadFromUserAndDate(1, date('Y-m-d'));
-
-$interval = $wh->getWorkedInterval()->format('%H:%I:%S');
-print_r($interval);
-
-echo '<br>';
-
-$intervalLunch = $wh->getLunchInterval()->format('%H:%I:%S');
-print_r($intervalLunch);
-
-echo '<br>';
-$exit = $wh->getExitTime();
-print_r($exit);
+print_r(getLastDayMonth('2020-02'));

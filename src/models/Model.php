@@ -86,8 +86,12 @@ class Model {
         if(is_array($params) && count($params) > 0) {
             $sql .= " WHERE 1 = 1";
             foreach($params as $column => $value) {
-                $sql .= " AND $column = "
-                . static::getFormatedValue($value);
+                if($column === 'raw') {
+                    $sql .= " AND $value";
+                } else {
+                    $sql .= " AND $column = "
+                    . static::getFormatedValue($value);
+                }
             }
         }
 

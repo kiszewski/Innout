@@ -2,8 +2,6 @@
 session_start();
 requireValidateSession();
 
-loadModel("WorkingHours");
-
 $user = $_SESSION['user'];
 $records = WorkingHours::loadFromUserAndDate(1, date('Y-m-d'));
 
