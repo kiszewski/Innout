@@ -26,6 +26,26 @@ class WorkingHours extends Model {
         return $registry;
     }
 
+    public static function getMonthlyReport($user_id, $date) {
+        $registries = [];
+        $start_date = getFirstDayMonth($date)->format('Y-m-d');
+        $end_date = getLastDayMonth($date)->format('Y-m-d');
+
+        $result = static::getResultFromSelect([
+            'user_id' => $user_id,
+            'raw' => "work_date BETWEEN '{$start_date}' AND '{$end_date}'"
+        ]);
+
+        if($result) {
+            while($row = $result->fetch_assoc()) {
+                $registries[$row['work_date']] = new WorkingHours($row);
+            }
+            return $registries;
+        } else {
+            return null;
+        }
+    }
+
     public function getActiveClock() {
         $time = $this->getNextTime();
 
@@ -80,6 +100,29 @@ class WorkingHours extends Model {
         return sumIntervals($part1, $part2);
     }
 
+    
+    public function getNextTime() {
+        if(!$this->time1) return 'time1';
+        if(!$this->time2) return 'time2';
+        if(!$this->time3) return 'time3';
+        if(!$this->time4) return 'time4';
+        else return null;
+    }
+    
+    public function innout($time) {
+        $currentColumn = $this->getNextTime();
+        if(!$currentColumn) {
+            throw new AppException('Voce já fez os 4 batimentos do dia!');
+        }
+        
+        $this->$currentColumn = $time;
+        if($this->id) {
+            $this->update();
+        } else {
+            $this->insert();
+        }
+    }
+
     private function getTimes() {
         $times = [];
 
@@ -89,27 +132,5 @@ class WorkingHours extends Model {
         $this->time4 ? array_push($times, getDateAsDateTime($this->time4)) : array_push($times, null);
 
         return $times;
-    }
-
-    public function getNextTime() {
-        if(!$this->time1) return 'time1';
-        if(!$this->time2) return 'time2';
-        if(!$this->time3) return 'time3';
-        if(!$this->time4) return 'time4';
-        else return null;
-    }
-
-    public function innout($time) {
-        $currentColumn = $this->getNextTime();
-        if(!$currentColumn) {
-            throw new AppException('Voce já fez os 4 batimentos do dia!');
-        }
-
-        $this->$currentColumn = $time;
-        if($this->id) {
-            $this->update();
-        } else {
-            $this->insert();
-        }
     }
 }

@@ -2,4 +2,10 @@
 session_start();
 requireValidateSession();
 
-loadTeamplateView("monthly_report");
+$user = $_SESSION['user'];
+
+$registries = WorkingHours::getMonthlyReport($user->id, '2020-04-01');
+
+loadTeamplateView("monthly_report", [
+    'registries' => $registries
+]);
