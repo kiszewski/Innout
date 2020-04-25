@@ -26,6 +26,20 @@ class WorkingHours extends Model {
         return $registry;
     }
 
+    public function getActiveClock() {
+        $time = $this->getNextTime();
+
+        if($time === 'time1' || $time === 'time3') {
+            return 'exitTime';
+        }
+
+        if($time === 'time2' || $time === 'time4') {
+            return 'workedTime';
+        } else {
+            return 'null';
+        }
+    }
+
     public function getExitTime() {
         [$t1, , , $t4] = $this->getTimes();
 
