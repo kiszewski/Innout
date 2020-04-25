@@ -26,13 +26,28 @@ class WorkingHours extends Model {
         return $registry;
     }
 
+    public function getExitTime() {
+        [$t1, , , $t4] = $this->getTimes();
+
+        $workDay = DateInterval::createFromDateString('8 hours');
+
+        if(!$t1) {
+            return (new DateTimeImmutable())->add($workDay);
+        } elseif ($t4) {
+            return $t4;
+        } else {
+            $total = sumIntervals($workDay, $this->getLunchInterval());
+            return $t1->add($total);
+        }
+    }
+
     public function getLunchInterval() {
         [, $t2, $t3,] = $this->getTimes();
 
         $breakInterval = new DateInterval('PT0S');
 
         if($t2) $breakInterval = $t2->diff(new DateTime());
-        if($t3) $breakInterval = $t3->diff($t2);
+        if($t3) $breakInterval = $t2->diff($t3);
 
         return $breakInterval;
     }
