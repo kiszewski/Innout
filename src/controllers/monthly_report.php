@@ -36,6 +36,6 @@ $sign = ($sumOfWorkedTime >= $expectedTime) ? '+' : '-';
 
 loadTeamplateView("monthly_report", [
     'report' => $report,
-    'sumOfWorkedTime' => $sumOfWorkedTime,
+    'sumOfWorkedTime' => getStringTimefromSeconds($sumOfWorkedTime),
     'balance' => "{$sign}{$balance}"
 ]);
