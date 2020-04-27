@@ -24,7 +24,7 @@
                         <td><?= $registry->time2 ?></td>
                         <td><?= $registry->time3 ?></td>
                         <td><?= $registry->time4 ?></td>
-                        <td><?= 'Saldo' ?></td>
+                        <td><?= $registry->getBalance() ?></td>
                     </tr>
                 <?php endforeach ?>
                     <tr class="bg-primary text-white">

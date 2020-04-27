@@ -28,6 +28,7 @@ for ($day = 1; $day <= $lastDay; $day++) {
             'work_date' => $date
             ]));
     }
+
 }
 
 $expectedTime = $workDay * DAILY_TIME;
