@@ -8,13 +8,29 @@
     ?>
     <div>
         <form class="mb-4" action="#" method="post">
-            <select class="form-control" name="period" placeholder="Selecione um período...">
-                <?php 
-                    foreach($periods as $key => $value) {
-                        echo "<option value='{$key}'>{$value}</option>";
-                    }
-                ?>
-            </select>
+            <div class="input-group">
+                <?php if($user->is_admin): ?>
+                    <select class="form-control mr-2" name="user" placeholder="Selecione um usuário...">
+                        <?php 
+                            foreach($users as $user) {
+                                $selected = $selectedUserId == $user->id ? 'selected' : '';
+                                echo "<option {$selected} value='{$user->id}'>{$user->name}</option>";
+                            }
+                        ?>
+                    </select>
+                <?php endif ?>
+                <select class="form-control mr-2" name="period" placeholder="Selecione um período...">
+                    <?php 
+                        foreach($periods as $key => $value) {
+                            $selected = $selectedPeriod == $key ? 'selected' : '';
+                            echo "<option {$selected} value='{$key}'>{$value}</option>";
+                        }
+                    ?>
+                </select>
+                <button class="btn">
+                    <i class="icofont-search"></i>
+                </button>
+            </div>
         </form>
         <table class="table table-striped table-hover">
             <thead>
