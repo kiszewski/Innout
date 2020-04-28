@@ -49,6 +49,25 @@ class WorkingHours extends Model
         }
     }
 
+    public static function getWorkedTimeInMonth($YearAndMonth) {
+        $start_date = getFirstDayMonth($YearAndMonth)->format('Y-m-d');
+        $end_date = getLastDayMonth($YearAndMonth)->format('Y-m-d');
+
+        $sql = "select sum(worked_time) as sum
+        from working_hours
+        where work_date between '{$start_date}' and '{$end_date}'";
+
+        $result = Database::getResultFromQuery($sql);
+
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $WorkedTimeTotal = $row['sum'];
+            }
+        }
+        
+        return $WorkedTimeTotal;
+    }
+
     public function getBalance()
     {
         if (!$this->time1 && !isPastWorkDay($this->work_date)) {

@@ -55,6 +55,30 @@ class Model {
         return $result;
     }
 
+    public static function getCount($filters = []) {
+        $result = static::getResultFromSelect($filters, 'count(*) as count');
+        return $result->fetch_assoc()['count'];
+    }
+
+    public static function getAbsentUsers() {
+        $today = date('Y-m-d');
+
+        $sql = "SELECT name FROM users WHERE end_date IS NULL
+        AND id NOT IN (SELECT user_id FROM working_hours
+        WHERE work_date = '{$today}' AND time1 IS NOT NULL)";
+
+        $result = Database::getResultFromQuery($sql);
+
+        $absentUsers = [];
+        if($result->num_rows) {
+            while($row = $result->fetch_assoc()) {
+                array_push($absentUsers, $row['name']);
+            }
+        }
+
+        return $absentUsers;
+    }
+
     public function insert() {
         $sql = "INSERT INTO " . static::$tableName . " ("
         . implode(',', static::$columns) . ") VALUES (";
