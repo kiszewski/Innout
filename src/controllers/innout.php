@@ -3,7 +3,7 @@ session_start();
 requireValidateSession();
 
 $user = $_SESSION['user'];
-$records = WorkingHours::loadFromUserAndDate(1, date('Y-m-d'));
+$records = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
 
 try {
     $currentTime = strftime('%H:%M:%S', time());
