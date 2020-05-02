@@ -7,13 +7,15 @@ $exception = null;
 if(count($_POST) > 0) {
     try {
         $newUser = new User($_POST);
-        $newUser->insert();
+        $sql = $newUser->insert();
         addSuccessMsg('Usuário inserido com sucesso!');
+        $_POST = [];
     } catch(Exception $e) {
         $exception = $e;
     }
 }
 
-loadTeamplateView('save_user', [
-    'exception' => $exception
+loadTeamplateView('save_user', $_POST + [
+    'exception' => $exception,
+    'sql' => $sql
 ]);
