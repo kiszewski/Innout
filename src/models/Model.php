@@ -64,6 +64,7 @@ class Model {
         $today = date('Y-m-d');
 
         $sql = "SELECT name FROM users WHERE end_date IS NULL
+        AND deleted_at IS NULL
         AND id NOT IN (SELECT user_id FROM working_hours
         WHERE work_date = '{$today}' AND time1 IS NOT NULL)";
 
@@ -102,6 +103,14 @@ class Model {
         $sql[strlen($sql) - 1] = ' ';
         $sql .= "WHERE id = {$this->id}";
         Database::executeSql($sql);
+    }
+
+    public static function deleteById($id) {
+        $date = date('Y-m-d');
+        $sql = "UPDATE " . static::$tableName . " SET deleted_at = '{$date}'
+        WHERE id = $id";
+        Database::executeSql($sql);
+        // return $sql;
     }
 
     private static function getFilters($params) {

@@ -50,6 +50,12 @@ for ($day = 1; $day <= $lastDay; $day++) {
 
 }
 
+foreach($users as $key => $user) {
+    if(is_string($user->deleted_at)) {
+        unset($users[$key]);
+    }
+}
+
 $expectedTime = $workDay * DAILY_TIME;
 $balance = getStringTimefromSeconds(abs($sumOfWorkedTime - $expectedTime));
 $sign = ($sumOfWorkedTime >= $expectedTime) ? '+' : '-';
