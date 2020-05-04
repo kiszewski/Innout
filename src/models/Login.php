@@ -20,6 +20,10 @@ class Login extends Model {
     public function checkLogin() {
         $this->validate();
         $user = User::getOne(['email' => $this->email]);
+        
+        if($user->deleted_at) {
+            throw new AppException('Usuário excluído do sistema.');
+        }
         if($user->end_date) {
             throw new AppException('Usuário desligado da empresa.');
         }
