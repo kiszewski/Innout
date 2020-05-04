@@ -1,6 +1,6 @@
 <?php
 session_start();
-requireValidateSession();
+requireValidateSession(true);
 
 $activeUsersCount = User::getActiveUsersCount();
 
