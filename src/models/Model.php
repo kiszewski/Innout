@@ -16,7 +16,7 @@ class Model {
                 $cleanValue = $value;
                 if($sanitaze && isset($cleanValue)) {
                     $cleanValue = strip_tags(trim($cleanValue));
-                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
+                    // $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
                     $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
                 }
                 $this->$key = $cleanValue;
@@ -31,6 +31,10 @@ class Model {
 
     public function __set($key, $value) {
         $this->values[$key] = $value;
+    }
+
+    public function getValues() {
+        return $this->values;
     }
 
     public static function get($params = [], $columns = '*') {
