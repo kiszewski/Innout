@@ -5,15 +5,23 @@ class Model {
     protected static $columns = [];
     protected $values = [];
 
-    function __construct($arr) {
-        $this->loadFromArray($arr);
+    function __construct($arr, $sanitaze = true) {
+        $this->loadFromArray($arr, $sanitaze);
     }
 
-    public function loadFromArray($arr) {
+    public function loadFromArray($arr, $sanitaze = true) {
         if($arr) {
+            $conn = Database::getConnection();
             foreach($arr as $key => $value) {
-                $this->$key = $value;
+                $cleanValue = $value;
+                if($sanitaze && isset($cleanValue)) {
+                    $cleanValue = strip_tags(trim($cleanValue));
+                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
+                    $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
+                }
+                $this->$key = $cleanValue;
             }
+            $conn->close();
         }
     }
 
